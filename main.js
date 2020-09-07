@@ -27,7 +27,8 @@ function findElementOnDOM(input) {
 }
 
 window.addEventListener('load', function () {
+  ethereal.import('nav');
+    
   //* initialized materialize-css
   if (typeof M === 'object') M.AutoInit();
-  ethereal.import('nav');
 });

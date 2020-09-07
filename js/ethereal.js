@@ -29,7 +29,7 @@
   }
   
   ethereal.prototype.import = function importComponent(name) {
-    var _path = this.path(`_components/${name}.js`);
+    var _path = this.path(`components/${name}.js`);
     var _script = document.createElement('script');
     var _self = this;
     
