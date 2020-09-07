@@ -1,5 +1,5 @@
-const app = {
-  itemUsage: {
+const items = {
+  usage: {
     total: 0,
     add(el) {
       this.total++;
@@ -28,7 +28,8 @@ function findElementOnDOM(input) {
 
 window.addEventListener('load', function () {
   ethereal.import('nav');
-    
+  ethereal.import('auth');
+  
   //* initialized materialize-css
   if (typeof M === 'object') M.AutoInit();
 });

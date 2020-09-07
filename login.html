@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- ios webapp -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <title>Login</title>
+  
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Compiled and minified CSS --> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> 
+  
+  <!-- Compiled and minified JavaScript --> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+  <!-- MapBox API -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="js/ethereal.js"></script>
+  
+</head>
+
+<body>
+  <nav class="nav-extended indigo darken-2">
+    <div class="nav-wrapper">
+      <a href="?" class="brand-logo">Ethereal </a>
+      <a href="#" data-target="nav-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      
+      <ul id="nav-mobile" class="right hide-on-med-and-down"> 
+        <li><a href="sass.html">Sass</a></li> 
+        <li><a href="badges.html">Components</a></li> 
+        <li><a href="collapsible.html">JavaScript</a></li> 
+      </ul> 
+    </div>
+  </nav> 
+    
+  <ul class="sidenav" id="nav-menu" data-list="nav"></ul>
+  
+  <section class="container hidden" id="login">
+    <div class="row">
+      <h4>User Login</h4>
+      
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="username" type="text" class="validate" autocapitalize="off">
+            <label for="username">Username</label>
+          </div>
+            
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+      </div>
+      
+      <button class="btn indigo darken-2btn waves-effect waves-light" id="login">
+        Login <i class="material-icons right">send</i>
+      </button>
+          
+    </div>
+  </section>
+  
+  <section class="container hidden" id="profile">
+    <h2>Hello, {user.name}!</h2>
+  </section>
+  
+  <footer class="page-footer indigo darken-2">
+    <div class="footer-copyright">
+      <div class="container">
+        © 2020 Ethereal.
+      </div>
+    </div>
+  </footer>
+  
+  <script src="main.js"></script>
+  
+  <script>
+    ethereal.on('auth.load', function () {
+      let login = document.querySelector('section#login');
+      let profile = document.querySelector('section#profile');
+
+      if (! ethereal.auth.session()) {
+        let login_btn  = document.querySelector('button#login');
+        let user_input = document.querySelector('input#username');
+        let pass_input = document.querySelector('input#password');
+
+        login.classList.remove('hidden');
+        profile.classList.add('hidden');
+        
+        // user_input.addEventListener('change', ({target}) => target.value = target.value.toLowerCase());
+
+        login_btn.addEventListener('click', function () {
+          let user = user_input.value;
+          let pass = pass_input.value;
+      
+          ethereal.auth.login(user, pass, function (user) {
+            if (user === -1) {
+              // user not found
+              return M.toast({
+                html: 'Unexisted User'
+              });
+            }
+        
+            if (user === 0) {
+              // password not match
+              return M.toast({
+                html: 'Incorrect Password'
+              });
+            }
+        
+            // authorized user
+            M.toast({
+              html: `Welcome back, <storng>${user.name}<storng>!`
+            });
+        
+            ethereal.auth.store(user);
+            login.classList.add('hidden');
+            profile.classList.remove('hidden');
+          });
+        });
+      } else {
+        login.classList.add('hidden');
+        profile.classList.remove('hidden');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

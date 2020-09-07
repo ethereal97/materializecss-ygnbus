@@ -1,4 +1,6 @@
-(function () { 
+ethereal.export(function () {
+  let nav = {};
+  
   let lists = document.querySelectorAll('[data-list=nav]');
   
   if (! lists) {
@@ -22,6 +24,7 @@
     nav_url = [location.hostname, repo, nav_url].join('/');
   }
   
+  //* fetch the list of nav-menu
   fetch(nav_url)
   .then(res => res.json())
   .then(items => { 
@@ -30,4 +33,27 @@
       lists.forEach(list => list.appendChild(li));
     }) 
   });
-})();
+  
+  //* add events on "ethereal"
+  ethereal.on('auth.load', function () {
+    let menu = {
+      name: null,
+      href: null
+    };
+    if (ethereal.components.auth.session()) {
+      menu.name = "Log Out";
+      menu.href = "login.html?logout=true";
+    } else {
+      menu.name = "Login";
+      menu.href = "login.html"
+    }
+    
+    let li = addList(menu, false);
+    
+    lists.forEach(list => list.appendChild(li));
+  });
+  
+  return {
+    nav
+  };
+});

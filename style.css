@@ -5,6 +5,10 @@ body {
   overflow: hidden;
 } 
 
-main { 
+main, session { 
   flex: 1 0 auto; 
+}
+
+.hidden {
+  visibility: hidden;
 }
