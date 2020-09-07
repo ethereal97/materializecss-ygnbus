@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Home",
+    "href": "index.html" 
+  },
+  {
+    "name": "Settings",
+    "href": "settings.html"
+  },
+  {
+    "name": "Usage",
+    "href": "#test1"
+  },
+  {
+    "name": "History",
+    "href": "#test2"
+  }
+]

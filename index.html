@@ -32,10 +32,10 @@
 </head>
 
 <body>
-  <nav class="nav-extended">
+  <nav class="nav-extended indigo darken-2">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">YGN BUS</a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="/" class="brand-logo">YGN BUS</a>
+      <a href="#" data-target="nav-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       
       <ul id="nav-mobile" class="right hide-on-med-and-down"> 
         <li><a href="sass.html">Sass</a></li> 
@@ -46,28 +46,39 @@
       
     <div class="nav-content"> 
       <ul class="tabs tabs-transparent"> 
-        <li class="tab"><a href="#test1">Test 1</a></li>
-        <li class="tab"><a class="active" href="#test2">Test 2</a></li> 
+        <li class="tab"><a class="active" href="#test1">Usage</a></li>
+        <li class="tab"><a href="#test2">History</a></li> 
         <li class="tab disabled"><a href="#test3">Disabled Tab</a></li> 
         <li class="tab"><a href="#test4">Test 4</a></li> 
       </ul>
     </div>
   </nav> 
     
-  <ul class="sidenav" id="mobile-demo"> 
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li> 
-    <li><a href="collapsible.html">JavaScript</a></li> 
-  </ul>
+  <ul class="sidenav" id="nav-menu" data-list="nav"></ul>
   
-  <main>
-    <div id="test1" class="col s12">Test 1</div>
-    <div id="test2" class="col s12">Test 2</div>
-    <div id="test3" class="col s12">Test 3</div>
-    <div id="test4" class="col s12">Test 4</div>
+  <main class="container">
+    <div id="test1">
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header">
+            Today Usage
+            <span class="badge" id="total">1</span>
+          </div>
+        </li>
+      </ul>
+      
+      <button class="waves-effect wave-light btn indigo darken-2" type="submit" onclick="app.itemUsage.add('#total')">+</button>
+      <button class="waves-effect wave-light btn indigo darken-2" type="submit" onclick="app.itemUsage.substract('#total')">-</button>
+    </div>
+    
+    <div id="test2">Test 2</div>
+    
+    <div id="test3">Test 3</div>
+    
+    <div id="test4">Test 4</div>
   </main>
   
-  <footer class="page-footer">
+  <footer class="page-footer indigo darken-2">
     <div class="footer-copyright">
       <div class="container">
         © 2020 Ethereal.
@@ -76,6 +87,8 @@
   </footer>
   
   <script src="main.js"></script>
+  <script src="js/ethereal.js"></script>
+
   
 </body>
 </html>
