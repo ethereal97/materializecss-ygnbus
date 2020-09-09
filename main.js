@@ -27,6 +27,7 @@ function findElementOnDOM(input) {
 }
 
 window.addEventListener('load', function () {
+  ethereal.import('complier');
   ethereal.import('nav');
   ethereal.import('auth');
   

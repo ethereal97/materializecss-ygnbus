@@ -11,4 +11,7 @@ main, session {
 
 .hidden {
   visibility: hidden;
+  display: none;
+  height: 1px;
+  width: 1px;
 }

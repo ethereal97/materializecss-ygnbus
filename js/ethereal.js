@@ -132,6 +132,7 @@ const ethereal = (function (W) {
       
       this.dispatch([component, 'load'].join('.'));
     }
+    this.dispatch('load');
   };
   
   //* assign new Ethereal to global variable

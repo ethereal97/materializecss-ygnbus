@@ -51,7 +51,7 @@
   <ul class="sidenav" id="nav-menu" data-list="nav"></ul>
   
   <section class="container hidden" id="login">
-    <div class="row">
+    <form class="row" id="login">
       <h4>User Login</h4>
       
       <div class="col s12">
@@ -73,12 +73,11 @@
       <button class="btn indigo darken-2btn waves-effect waves-light" id="login">
         Login <i class="material-icons right">send</i>
       </button>
-          
-    </div>
+    </form>
   </section>
   
   <section class="container hidden" id="profile">
-    <h2>Hello, {user.name}!</h2>
+    <h2>Hello, <span class="text-muted">{name}</span>!</h2>
   </section>
   
   <footer class="page-footer indigo darken-2">
@@ -92,6 +91,11 @@
   <script src="main.js"></script>
   
   <script>
+    document.querySelector('form#login').addEventListener('submit', function (event) {
+      document.querySelector('button#login').click();
+      return event.preventDefault();
+    });
+  
     ethereal.on('auth.load', function () {
       let login = document.querySelector('section#login');
       let profile = document.querySelector('section#profile');
@@ -104,40 +108,63 @@
         login.classList.remove('hidden');
         profile.classList.add('hidden');
         
-        // user_input.addEventListener('change', ({target}) => target.value = target.value.toLowerCase());
-
         login_btn.addEventListener('click', function () {
           let user = user_input.value;
           let pass = pass_input.value;
-      
+
           ethereal.auth.login(user, pass, function (user) {
             if (user === -1) {
-              // user not found
+              user_input.classList.remove('valid');
+              user_input.classList.add('invalid');
+              
+              user_input.value = '';
+              pass_input.value = '';
+              
               return M.toast({
                 html: 'Unexisted User'
               });
             }
         
             if (user === 0) {
-              // password not match
+              user_input.classList.remove('invalid');
+              user_input.classList.remove('valid');
+              pass_input.classList.remove('valid');
+              pass_input.classList.add('invalid');
+              
+              pass_input.value = '';
+              
               return M.toast({
                 html: 'Incorrect Password'
               });
             }
-        
+            
+            user_input.classList.remove('invalid');
+            user_input.classList.add('valid');
+            pass_input.classList.add('valid');
+            pass_input.classList.remove('invalid');
+               
             // authorized user
             M.toast({
               html: `Welcome back, <storng>${user.name}<storng>!`
             });
         
             ethereal.auth.store(user);
+            ethereal.complier.complie(profile, {
+              name: user.name
+            });
+            
             login.classList.add('hidden');
             profile.classList.remove('hidden');
           });
         });
       } else {
-        login.classList.add('hidden');
-        profile.classList.remove('hidden');
+        ethereal.on('auth.load', function () {
+          ethereal.complier.complie(profile, {
+              name: user.name
+           });
+         login.classList.add('hidden');
+         profile.classList.remove('hidden');
+       });
       }
     });
   </script>

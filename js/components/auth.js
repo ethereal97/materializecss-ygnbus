@@ -15,16 +15,19 @@ ethereal.export(function (app) {
     
     store: createSessionUser,
     
-    login(user, pass, callback) {
+    login(user, pwd, callback) {
       return sendAuthRequest('users.json').then(users => {
-        var user_data = users.filter((user) => user.username)[0];
-        if (! user_data) {
+        var usr = users.filter(({ username }) => username === user)[0];
+        
+        if (! usr) {
           return callback(-1);
         }
-        if (user_data.password !== pass) {
+        
+        if (usr.password !== pwd) {
           return callback(0);
         }
-        return callback(user_data);
+        
+        return callback(usr);
       });
     },
     
@@ -44,15 +47,26 @@ ethereal.export(function (app) {
     if (query.has('logout')) {
       destorySession();
       return setTimeout(() => window.location.assign(window.location.pathname), 860);
+    } else {
+      ethereal.on('load', function() {
+        alert('auth(52):' + user.name);
+      });
     }
   }
   
   //* methods
   function sendAuthRequest(...path) {
-    let url = [auth.api, ...path].join('/');
+    let url;
+    var host = location.hostname;
     
-    return fetch(url).then(r => r.json());
-  }
+    if (host !== 'localhost' || host !== '127.0.0.1') {
+      var repo = location.pathname.split('/')[0];
+      url = [repo, auth.api, ...path].join('/');
+    } else {
+      url = [auth.api, ...path].join('/');
+    }
+    return fetch(url).then(r => r.json(), e => alert(e.message));
+  } 
   
   function createSessionUser(user) {
     delete user.password;
