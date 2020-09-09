@@ -21,12 +21,12 @@ ethereal.export(function () {
   
   if (location.hostname.includes('github.io')) {
     var repo = location.pathname.split('/')[0];
-    nav_url = [location.hostname, repo, nav_url].join('/');
+    nav_url = [repo, nav_url].join('/');
   }
   
   //* fetch the list of nav-menu
   fetch(nav_url)
-  .then(res => res.json())
+  .then(r => r.json(), e => alert(e.message))
   .then(items => { 
     items.forEach(item => { 
       let li = addList(item, false);
