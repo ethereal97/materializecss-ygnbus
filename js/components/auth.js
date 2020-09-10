@@ -57,11 +57,9 @@ ethereal.export(function (app) {
   //* methods
   function sendAuthRequest(...path) {
     let url;
-    var host = location.hostname;
     
-    if (host.match(/.+\.github\.io\/.+/g)) {
+    if (location.hostname.match(/.+\.github\.io\/.+/g)) {
       var repo = location.pathname.split('/')[0];
-      alert(repo);
       url = [repo, auth.api, ...path].join('/');
     } else {
       url = [auth.api, ...path].join('/');

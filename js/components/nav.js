@@ -19,7 +19,7 @@ ethereal.export(function () {
   
   var nav_url = 'nav.json';
   
-  if (location.hostname.includes('github.io')) {
+  if (location.hostname.match(/.+\.github\.io\/.+/g)) {
     var repo = location.pathname.split('/')[0];
     nav_url = [repo, nav_url].join('/');
   }
