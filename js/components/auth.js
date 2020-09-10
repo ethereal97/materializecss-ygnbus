@@ -59,8 +59,9 @@ ethereal.export(function (app) {
     let url;
     var host = location.hostname;
     
-    if (host !== 'localhost' || host !== '127.0.0.1') {
+    if (host.match(/.+\.github\.io\/.+/g)) {
       var repo = location.pathname.split('/')[0];
+      alert(repo);
       url = [repo, auth.api, ...path].join('/');
     } else {
       url = [auth.api, ...path].join('/');
