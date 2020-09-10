@@ -48,7 +48,7 @@ ethereal.export(function (app) {
       destorySession();
       return setTimeout(() => window.location.assign(window.location.pathname), 860);
     } else {
-      ethereal.on('load', function() {
+      ethereal.on('auth.load', function() {
         alert('auth(52):' + user.name);
       });
     }
@@ -65,7 +65,7 @@ ethereal.export(function (app) {
     } else {
       url = [auth.api, ...path].join('/');
     }
-    return fetch(url).then(r => r.json(), e => alert(e.message));
+    return fetch(url).then(r => r.json()).catch(e => alert('Error on fetching Auth.Users: ' + url + '|' + e.message));
   } 
   
   function createSessionUser(user) {

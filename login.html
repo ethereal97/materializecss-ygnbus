@@ -91,11 +91,12 @@
   <script src="main.js"></script>
   
   <script>
-    document.querySelector('form#login').addEventListener('submit', function (event) {
-      document.querySelector('button#login').click();
-      return event.preventDefault();
-    });
-  
+  document.querySelector('form#login').addEventListener('submit', function (event) {
+    document.querySelector('button#login').click();
+    return event.preventDefault();
+  });
+    
+  window.addEventListener('load', () => {
     ethereal.on('auth.load', function () {
       let login = document.querySelector('section#login');
       let profile = document.querySelector('section#profile');
@@ -167,6 +168,7 @@
        });
       }
     });
+  });
   </script>
 
 </body>

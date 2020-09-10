@@ -31,8 +31,9 @@ ethereal.export(function () {
     items.forEach(item => { 
       let li = addList(item, false);
       lists.forEach(list => list.appendChild(li));
-    }) 
-  });
+    })
+  })
+  .catch(e => alert('Error on fetching Nav.Menu: ' + nav_url + '|' + e.message));
   
   //* add events on "ethereal"
   ethereal.on('auth.load', function () {
